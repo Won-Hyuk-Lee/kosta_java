@@ -1,0 +1,18 @@
+package com.kosta.sample.board;
+
+import java.sql.SQLException;
+
+public class BoardCallTest {
+
+	public static void main(String[] args) throws SQLException {
+		MyBoard board = new MyBoard();
+
+		board.oracleConn();
+		board.boardSelect("*", "emp");
+		board.boardDelete(7876);
+		board.boardSelect("*", "emp");
+		board.oracleClose();
+		board.boardSelect("*", "emp");
+	}
+
+}

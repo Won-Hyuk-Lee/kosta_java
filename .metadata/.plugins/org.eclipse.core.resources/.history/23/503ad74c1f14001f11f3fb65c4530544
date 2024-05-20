@@ -1,0 +1,25 @@
+package com.kosta.sample.board;
+
+import java.util.ArrayList;
+
+import com.kosta.sample.jdbc.EmpVO;
+
+public class BoardCallTest {
+
+	public static void main(String[] args) {
+		Board obj = new Board();
+
+		int delCount = obj.boardDelete(7521);
+		System.out.println("총 삭제:" + delCount);
+
+		ArrayList<EmpVO> list = obj.boardSelect();
+		System.out.println("총:" + list.size());
+		for (int i = 0; i < list.size(); i++) {
+			int a = list.get(i).getEmpno();
+			String b = list.get(i).getEname();
+			System.out.println(a + "\t" + b);
+		}
+
+	}
+
+}

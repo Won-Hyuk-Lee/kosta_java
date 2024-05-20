@@ -1,0 +1,28 @@
+package com.kosta.sample.board;
+
+import java.sql.SQLException;
+
+import javax.sql.DataSource;
+
+import oracle.jdbc.pool.OracleConnectionPoolDataSource;
+
+public class MyOracleConnection {
+	private static final String DB_URL = "jdbc:oracle:thin:@127.0.0.1:1521:XE";
+	private static final String DB_ID = "it";
+	private static final String DB_PW = "0000";
+
+	public DataSource myOracleDataSource() {
+		OracleConnectionPoolDataSource ds = null;
+		try {
+			ds = new OracleConnectionPoolDataSource();
+			ds.setURL(DB_URL);
+			ds.setUser(DB_ID);
+			ds.setPassword(DB_PW);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ds;
+		
+		
+	}
+}

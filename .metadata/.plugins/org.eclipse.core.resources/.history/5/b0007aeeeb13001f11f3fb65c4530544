@@ -1,0 +1,68 @@
+package com.kosta.sample.board;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import com.kosta.sample.jdbc.EmpVO;
+
+public class Board {
+	final String DB_URL = "jdbc:oracle:thin:@127.0.0.1:1521:XE";
+	final String DB_ID = "it";
+	final String DB_PW = "0000";
+
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+
+	public void oracleConn() {
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			conn = DriverManager.getConnection(DB_URL, DB_ID, DB_PW);
+			if (conn != null) {
+				System.out.println("conn ok");
+			} else {
+				System.out.println("conn no");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void boardSelect() throws SQLException {
+		String sql = "select * from emp";
+		pstmt = conn.prepareStatement(sql);
+		rs = pstmt.executeQuery();
+
+		ArrayList<HashMap<String,Object>> 밥상 = new ArrayList<HashMap<String,Object>>();
+		while(rs.next() == true) {
+			HashMap<String,Object> 식판 = new HashMap<String,Object>();
+		식판.put("empno", rs.getInt("empno"));
+			식판.put("ename", rs.getString("ename"));
+			밥상.add(식판);
+
+		}
+	}
+	
+	public void oracleDelete(int empno) {
+		
+	}
+	
+	public void oracleDelete(EmpVO e) {
+		
+	}
+
+	public void oracleClose() throws SQLException {
+		conn.close();
+	}
+}
