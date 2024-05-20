@@ -10,6 +10,52 @@ import javax.sql.DataSource;
 
 public class BoardDAO {
 	
+	//보드와 해당하는 리플 같이 가져오겠다
+	public BoardVO boardReplySelect(int seq) {
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    DataSource ds = null;
+	    MyOracleConnection moc = new MyOracleConnection();
+	    BoardVO bvo = null;
+	    ReplyVO rvo = null;
+	    
+	    try {
+	    	ds = moc.myOracleDataSource();
+			conn = ds.getConnection();
+			String sql = "select b.seq, b.title, b.regid, b.regdate, r.rseq , r.reply, r.regid as rregid, r.regdate as rregdate from board b, reply r where b.seq= ? and b.seq = r.seq(+) order by r.seq desc";
+			//String sql = "select * from board where seq = ?";
+			pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, seq);
+	        rs = pstmt.executeQuery();
+	        ArrayList<ReplyVO> replyList = new ArrayList();
+	        
+	        while (rs.next()) {
+	            bvo = new BoardVO();
+	            rvo = new ReplyVO();
+	            bvo.setSeq(rs.getInt("seq"));
+	            bvo.setTitle(rs.getString("title"));
+	            //bvo.setContents(rs.getString("contents"));
+	            bvo.setRegid(rs.getString("regid"));
+	            bvo.setRegdate(rs.getString("regdate"));
+	            rvo.setRseq(rs.getInt("rseq"));
+	            rvo.setReply(rs.getString("reply"));
+	            rvo.setRegid(rs.getString("regid"));
+	            rvo.setRegdate(rs.getString("regdate"));
+	            //rvo.setSeq(rs.getInt("seq"));
+	            replyList.add(rvo);
+	        }
+	        bvo.setReplies(replyList);
+	        
+	        
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return bvo;
+	}
+	
 	//한건만
 	public BoardVO boardSelect(int seq) {
 	    Connection conn = null;
@@ -22,7 +68,7 @@ public class BoardDAO {
 	    try {
 	        ds = moc.myOracleDataSource();
 	        conn = ds.getConnection();
-	        String sql = "select * from myboard where seq = ?";
+	        String sql = "select * from board where seq = ?";
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setInt(1, seq); // seq는 int형이므로 setInt 사용
 	        rs = pstmt.executeQuery();
@@ -64,7 +110,7 @@ public class BoardDAO {
 			// conn = moc.oracleConn();
 			ds = moc.myOracleDataSource();
 			conn = ds.getConnection();
-			String sql = "select * from myboard";
+			String sql = "select * from board";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -99,7 +145,7 @@ public class BoardDAO {
 			ds = moc.myOracleDataSource();
 			conn = ds.getConnection();
 
-			String sql = "insert into myboard values(board_seq.nextval,?,?,?,sysdate)";
+			String sql = "insert into board values(board_seq.nextval,?,?,?,sysdate)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, bvo.getTitle());
 			pstmt.setString(2, bvo.getContents());
@@ -127,7 +173,7 @@ public class BoardDAO {
 			ds = moc.myOracleDataSource();
 			conn = ds.getConnection();
 
-			String sql = "update myboard set title=?, contents=? where seq=?";
+			String sql = "update board set title=?, contents=? where seq=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, bvo.getTitle());
 			pstmt.setString(2, bvo.getContents());
@@ -154,7 +200,7 @@ public class BoardDAO {
 			ds = moc.myOracleDataSource();
 			conn = ds.getConnection();
 			
-			String sql = "delete from myboard where seq=?";
+			String sql = "delete from board where seq=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, seq);
 			delRows = pstmt.executeUpdate();
