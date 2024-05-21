@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+태그(tag) &lt; &gt; <br>
+This is First Page.<br>
+This is First Page.<p>
+<font color=red><b>This is</b></font> First Page.<br>
+<img width=300 height=300 src = "https://images.chosun.com/resizer/WPjSD1gKAN2606nVBIPn1QnVQbU=/616x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosun/JDH4F64PPNIOBKMZ5MWN3XQFZU.jpg"
+<br>
+<a href="http://www.google.com" > 구글로 이동</a><br>
+<a href="http://www.google.com" target = "blank"> 새탭으로 구글 이동</a><br>
+</body>
+</html>

@@ -1,0 +1,12 @@
+127.0.0.1 - - [21/May/2024:17:12:14 +0900] "GET / HTTP/1.1" 200 48138
+0:0:0:0:0:0:0:1 - - [21/May/2024:17:12:16 +0900] "GET /Practice_Servlet_Call.jsp HTTP/1.1" 200 1302
+0:0:0:0:0:0:0:1 - - [21/May/2024:17:12:21 +0900] "POST /board_servlet_url HTTP/1.1" 200 4
+0:0:0:0:0:0:0:1 - - [21/May/2024:17:12:31 +0900] "GET /Practice_Servlet_Call.jsp HTTP/1.1" 200 1302
+0:0:0:0:0:0:0:1 - - [21/May/2024:17:12:32 +0900] "GET /favicon.ico HTTP/1.1" 404 818
+0:0:0:0:0:0:0:1 - - [21/May/2024:17:12:43 +0900] "POST /board_servlet_url HTTP/1.1" 200 4
+0:0:0:0:0:0:0:1 - - [21/May/2024:17:12:54 +0900] "GET /Practice_Servlet_Call.jsp HTTP/1.1" 200 1302
+0:0:0:0:0:0:0:1 - - [21/May/2024:17:12:54 +0900] "GET /favicon.ico HTTP/1.1" 404 818
+0:0:0:0:0:0:0:1 - - [21/May/2024:17:12:59 +0900] "POST /board_servlet_url HTTP/1.1" 200 4
+0:0:0:0:0:0:0:1 - - [21/May/2024:17:13:17 +0900] "GET /Practice_Servlet_Call.jsp HTTP/1.1" 200 1302
+0:0:0:0:0:0:0:1 - - [21/May/2024:17:13:17 +0900] "GET /favicon.ico HTTP/1.1" 404 818
+0:0:0:0:0:0:0:1 - - [21/May/2024:17:13:22 +0900] "POST /board_servlet_url HTTP/1.1" 200 4
