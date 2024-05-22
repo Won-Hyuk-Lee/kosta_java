@@ -37,7 +37,11 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/oraclexe/app/oracle/product/11.2.0/server/jdbc/lib/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="C:/oraclexe/app/oracle/product/11.2.0/server/jdbc/lib/ojdbc6.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="C:/IT/etcJar/jackson-databind-2.1.4.jar" sourcepath="C:/IT/jdk-17.0.10/lib/src.zip"/>
 	<classpathentry kind="lib" path="C:/IT/etcJar/json-20231013.jar"/>
 	<classpathentry kind="lib" path="C:/IT/etcJar/json-simple-1.1.1.jar"/>

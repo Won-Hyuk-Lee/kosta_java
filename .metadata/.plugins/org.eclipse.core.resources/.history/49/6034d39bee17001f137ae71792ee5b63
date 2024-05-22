@@ -1,0 +1,40 @@
+package com.kosta.sample.user;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import javax.sql.DataSource;
+
+import com.kosta.sample.common.MyOracleConnection;
+
+public class UserDAO {
+	
+	public int userInsert(UserVO uvo) {
+		Connection conn = null;
+		MyOracleConnection moc = new MyOracleConnection();
+		DataSource ds = null;
+		
+			try {
+				ds = moc.myOracleDataSource();
+				conn = ds.getConnection();
+				if(conn != null) System.out.println("conn ok");
+				else System.out.println("conn failed");
+				
+				uvo.toString();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+
+		return 1;
+	}
+
+	public boolean userLogin(String userid, String passwd) {
+		
+		boolean userCheck = true; // rs.next();
+		
+		return userCheck;
+	}
+
+}

@@ -1,0 +1,77 @@
+package com.kosta.sample.user;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.sql.DataSource;
+
+import com.kosta.sample.common.MyOracleConnection;
+
+public class UserDAO {
+
+	public int userInsert(UserVO uvo) {
+		int insertRows = 0;
+		Connection conn = null;
+		MyOracleConnection moc = new MyOracleConnection();
+		DataSource ds = null;
+		PreparedStatement pstmt = null;
+		try {
+			ds = moc.myOracleDataSource();
+			conn = ds.getConnection();
+			if (conn != null)
+				System.out.println("conn ok");
+			else
+				System.out.println("conn failed");
+			String sql = "insert into users values(users_seq.nextval,?,?,?,?,sysdate)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, uvo.getUserid());
+			pstmt.setString(2, uvo.getUname());
+			pstmt.setString(3, uvo.getEmail());
+			pstmt.setString(4, uvo.getPasswd());
+			insertRows = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return insertRows;
+	}
+
+	public boolean userLogin(String userid, String passwd) {
+
+		Connection conn = null;
+		MyOracleConnection moc = new MyOracleConnection();
+		DataSource ds = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		boolean userCheck = false;
+		try {
+			ds = moc.myOracleDataSource();
+			conn = ds.getConnection();
+			if (conn != null)
+				System.out.println("conn ok");
+			else
+				System.out.println("conn failed");
+			String sql = "select * from users where userid=? and passwd=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userid);
+			pstmt.setString(2, passwd);
+			rs = pstmt.executeQuery();
+			UserVO uvo = new UserVO();
+			//System.out.println("id = " + rs.getString("userid") + " pwd = " + rs.getString("passwd") + "name = " + rs.getString("uname"));
+			if (rs.next()) {
+				userCheck = true;
+				uvo.setUserid(rs.getString("userid"));
+				uvo.setPasswd(rs.getString("passwd"));
+				uvo.setUname(rs.getString("uname"));
+				System.out.println(uvo.toString());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return userCheck;
+	}
+
+}

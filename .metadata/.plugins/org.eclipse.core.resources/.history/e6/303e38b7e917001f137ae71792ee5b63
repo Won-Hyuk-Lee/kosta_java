@@ -1,0 +1,17 @@
+package com.kosta.sample.user;
+
+public class UserDAO {
+	
+	public int userInsert(UserVO uvo) {
+		
+		return 1;
+	}
+
+	public boolean userLogin(String userid, String passwd) {
+		
+		boolean userCheck = true; // rs.next();
+		
+		return userCheck;
+	}
+
+}
