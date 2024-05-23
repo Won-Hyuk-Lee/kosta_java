@@ -31,7 +31,7 @@ public class UserDAO {
 			if(conn != null) System.out.println("conn ok ");
 			else System.out.println("conn fail ");
 			
-			String sql = "insert into users values(users_seq.nextval,?,?,?,?,sysdate)";
+			String sql = "insert into users values(users_seq.nextval,?,?,?,?,sysdate, 'u')";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, uvo.getUserid());
 			pstmt.setString(2, uvo.getUname());

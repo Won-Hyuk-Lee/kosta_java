@@ -19,4 +19,6 @@
     <fullyQualifiedTypeName name="oracle.jdbc.pool.OracleConnectionPoolDataSource"/>
     <fullyQualifiedTypeName name="java.lang.String"/>
     <fullyQualifiedTypeName name="com.kosta.sample.common.MyOracleConnection"/>
+    <fullyQualifiedTypeName name="javax.servlet.RequestDispatcher"/>
+    <fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
 </qualifiedTypeNameHistroy>

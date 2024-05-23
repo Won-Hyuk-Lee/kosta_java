@@ -25,7 +25,7 @@
                                     
                                     
                                     
- <form method="post" action="<%=request.getContextPath()%>/UserServlet">
+ <form method="post" action="<%=request.getContextPath()%>/BoardServlet">
  <input type="hidden" name="pagecode" value="P002">
      <div class="form-floating mb-3">
          <input name="userid" class="form-control" id="inputFirstName" type="text" placeholder="Enter your ID" />

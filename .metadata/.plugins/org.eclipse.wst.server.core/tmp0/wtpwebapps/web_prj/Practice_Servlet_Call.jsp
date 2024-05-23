@@ -11,6 +11,7 @@
 <a href="/board_servlet_url">서블릿 GET방식 호출</a><br><br>
 
 <form method="get" action="/board_servlet_url">
+	<input name = "userid" type = "text"><br>
 	<input type = "submit" value = "서블릿 get방식 호출">
 </form><br><br>
 

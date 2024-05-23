@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -74,7 +74,19 @@
                                     </a>
                                     <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                                         <nav class="sb-sidenav-menu-nested nav">
+                                        <%
+                                        String userid = (String)session.getAttribute("KEY_SESS_USERID");
+                                        String uname = (String)session.getAttribute("KEY_SESS_UNAME");
+                                        String grade = (String)session.getAttribute("KEY_SESS_GRADE");
+                                        
+                                        if(grade!=null)
+                                        {
+                                        	
+                                        
+                                        %><a class="nav-link" href="/BoardServlet">LogOut</a> <%} else{ %>
                                             <a class="nav-link" href="login.jsp">Login</a>
+                                            <%} %>
+                                            
                                             <a class="nav-link" href="register.jsp">Register</a>
                                             <a class="nav-link" href="password.html">Forgot Password</a>
                                         </nav>
@@ -97,7 +109,7 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Charts
                             </a>
-                            <a class="nav-link" href="tables.html">
+                            <a class="nav-link" href="<%=request.getContextPath()%>/BoardServlet?pagecode=B001">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Tables
                             </a>
@@ -112,7 +124,15 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Dashboard</h1>
+                        <h1 class="mt-4">Dashboard<!--  세션보이기 -->
+<%=session.getAttribute("KEY_SESS_GRADE") %>님 환영합니다.
+<% 
+if(grade!=null){
+	if(grade.equals("u")) out.println("사용자");
+	else if(grade.equals("a")) out.println("어드민");
+	else out.println("오류");
+}
+%></h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
