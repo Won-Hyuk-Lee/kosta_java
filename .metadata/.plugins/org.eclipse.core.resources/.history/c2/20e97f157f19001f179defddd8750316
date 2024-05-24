@@ -1,0 +1,35 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+
+function myprint(a,b){
+	alert(a+b);
+	console.log(a+b);
+}
+
+</script>
+
+</head>
+<body>
+
+<!--  호출  -->
+
+
+<a href="" onClick="myprint(5,3)">클릭</a><br>
+<div onClick="myprint(5,3)"> 이건 div 클릭 </div>
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -121,7 +121,7 @@ if (grade != null) {
                             </a>
                             
 <!--  ------------------ BOARD 연결------------------------ -->                            
- <a class="nav-link" href="<%=request.getContextPath()%>/BoardServlet?pagecode=B001">
+ <a class="nav-link" href="<%=request.getContextPath()%>/BoardServlet">
      <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
      Tables
      

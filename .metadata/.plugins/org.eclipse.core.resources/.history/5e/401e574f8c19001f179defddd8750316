@@ -1,0 +1,54 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="js/scripts.js"></script>
+    
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+
+function myprint(a,b){
+	alert(a+b);
+	console.log(a+b);
+}
+
+</script>
+
+<script src = "js/my.js"></script>
+<script>
+
+//$ (document).ready ( function(){});
+//$(function(){});
+
+$(function(){
+	$("p").text = "text 변경변경";
+})
+
+</script>
+
+</head>
+<body>
+<p>Not loaded yet.</p><br><br>
+
+<!--  호출  -->
+
+
+<a href="#" onClick="myprint(5,3)">클릭</a><br>
+<div onClick="myprint(5,3)"> 이건 div 클릭 </div>
+<a href="#" onClick="myjsPrint()">클릭</a><br>
+
+<form name="loginFrom">
+	<input type="hidden" name="seq">
+	<input type="text"   name="uname">
+
+</form>
+
+
+
+</body>
+</html>

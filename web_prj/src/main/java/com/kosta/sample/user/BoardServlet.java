@@ -14,45 +14,51 @@ import javax.servlet.http.HttpSession;
 import com.kosta.sample.board.BoardDAO;
 import com.kosta.sample.board.BoardVO;
 
-
 @WebServlet("/BoardServlet")
 public class BoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
-    public BoardServlet() {
-        super();
-    }
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html;chrset=UTF-8");
-		
-		//board 목록 db에서 가져오기
-		BoardDAO dao = new BoardDAO();
-		ArrayList<BoardVO> list = dao.boardSelect();
-		
-		//글자 전송에 사용
-		// response.sendRedirect("xx.jsp");
-		// response.sendRedirect("xx.jsp?UID=kim&UPW=111");
-		
-		//객체 전송에 사용
-		/*
-		 * page scope : 가져온 값을 어느범위까지 공유해서 사용할것인가?
-		 * page < request < session < application
-		 */
-		request.setAttribute("KEY_BOARDLIST", list); //보드리스트 보내
-		
-		HttpSession session = request.getSession();
-		session.setAttribute("KEY_SESS_BOARDLIST", list);
-		
-		RequestDispatcher rd = request.getRequestDispatcher("tables.jsp"); //xx.jsp에 다 밀어줘
-		rd.forward(request, response);// response에 담아줘야해
-		
-		
+	public BoardServlet() {
+		super();
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;chrset=UTF-8");
+
+		// board 목록 db에서 가져오기
+		BoardDAO dao = new BoardDAO();
+		ArrayList<BoardVO> list = dao.boardSelect();
+
+		// 글자 전송에 사용
+		// response.sendRedirect("xx.jsp");
+		// response.sendRedirect("xx.jsp?UID=kim&UPW=111");
+
+		// 객체 전송에 사용
+		/*
+		 * page scope : 가져온 값을 어느범위까지 공유해서 사용할것인가? page < request < session <
+		 * application
+		 */
+		request.setAttribute("KEY_BOARDLIST", list); // 보드리스트 보내
+
+		HttpSession session = request.getSession();
+		session.setAttribute("KEY_SESS_BOARDLIST", list);
+
+		RequestDispatcher rd = request.getRequestDispatcher("tables.jsp"); // xx.jsp에 다 밀어줘
+		rd.forward(request, response);// response에 담아줘야해
+
+		String pagecode = request.getParameter("pagecode");
+
+		if (pagecode.equals("B001")) {
+			System.out.println("B001접속");
+		} else if (pagecode.equals("B002")) {
+			System.out.println("B002접속");
+		}
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;chrset=UTF-8");
 	}

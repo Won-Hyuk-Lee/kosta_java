@@ -1,0 +1,102 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <!-- 자바스크립트의 임포트는 다음과 같다 -->
+    <script src="js/scripts.js"></script>
+    <!-- <script src="webapp/js/scripts.js"></script> 도 가능 -->
+    
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    
+    <!-- my.js 메서드 임포트 -->
+    <script src="js/my.js"></script>
+
+
+
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    
+  <style>
+  p {
+    color: red;
+    font-weight:bold;
+  }
+  </style>
+  <link href="css/my.css" rel="stylesheet" />
+  
+    <script>
+    
+    //public int myprint(int a, int b){sys...}
+    function myprint(a,b){ //호출 -> 바디부에서
+        alert(a+b);
+        console.log(a+b);
+    }
+    </script>
+    
+    
+    
+    <!-- 제이쿼리($) 시작 -->
+    <script>
+    //$(document).ready(function() { //document.ready는 생략가능
+        
+    //});
+    
+    
+    $(function() { //document.ready를 이렇게 생략해서 써도 된다.
+        $("p").text="이렇게 바꿨어";
+    });
+    
+    
+    
+    </script>
+    
+
+    
+    
+</head>
+<body>
+    
+    <!-- 
+    myprint를 호출할때 자바에서는
+    lec_script ls = new lec_script();
+    ls.myprint(5,3);
+     -->
+    
+    <!--이렇게 호출해도되고-->
+    <a href="#" onClick="myprint(5,3)">내부 js 클릭1</a>
+    
+    
+    <!--이렇게 호출해도된다 -->
+    <div onClick="myprint(5,3)">내부 js 클릭2</div>
+    
+    
+    <!-- my.js의 메서드 -> 그러나 임포트해야지 -->
+    <a href="#" onClick="myjsPrint()">외부 my.js 클릭3</a>
+    
+    
+    <!-- form태그 요서 제어 -> form태그에 name값이 들어가야 한다. -->
+    <form name="loginForm">
+        <input type="hidden" name="seq" id="seq">
+        <input type="text" name="uname" id="uname">
+    </form>
+    
+    
+    
+    
+    <p>제이쿼리로 이 문구 바꿔볼래?</p>
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+</body>
+</html>
