@@ -1,11 +1,13 @@
 package com.kosta.sample.user;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -87,7 +89,6 @@ public class UserServlet extends HttpServlet {
 				session.setAttribute("KEY_SESS_USERID", uvo.getUserid());
 				session.setAttribute("KEY_SESS_UNAME", uvo.getUname());
 				session.setAttribute("KEY_SESS_GRADE", uvo.getGrade());
-				
 				response.sendRedirect("index.jsp");
 			} else {
 				//로그인 실패

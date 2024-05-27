@@ -1,8 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
+<%@ page language="java" 
+		 contentType="text/html; charset=UTF-8"
+    	 pageEncoding="UTF-8"
+%>
+
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.kosta.sample.board.BoardVO" %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -89,7 +92,7 @@ String grade  = (String)session.getAttribute("KEY_SESS_GRADE");
 
 if (grade != null) {
 %>      
-          <a class="nav-link" href="<%=request.getContextPath()%>/BoardServlet">Logout</a>
+          <a class="nav-link" href="<%=request.getContextPath()%>/UserServlet">Logout</a>
 <% } else { %>      
       	  <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp">Login</a>
 <% } %>
@@ -123,8 +126,7 @@ if (grade != null) {
 <!--  ------------------ BOARD 연결------------------------ -->                            
  <a class="nav-link" href="<%=request.getContextPath()%>/BoardServlet">
      <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-     Tables
-     
+     Tables    
  </a>
                         </div>
                     </div>
@@ -137,9 +139,7 @@ if (grade != null) {
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Tables <br>
-                        
-                        
+                        <h1 class="mt-4">Tables
                         
                         
 <!-- ---------------  세션 보이기 ------------------------- -->		
@@ -177,8 +177,7 @@ if (grade != null) {
                                         <tr>
                                             <th>글번호</th>
                                             <th>제목</th>
-                                            <th>내용</th>
-                                            <th>작성자</th>
+                                            <th>글쓴이</th>
                                             <th>작성일</th>
                                         </tr>
                                     </thead>
@@ -186,33 +185,32 @@ if (grade != null) {
                                         <tr>
                                             <th>글번호</th>
                                             <th>제목</th>
-                                            <th>내용</th>
-                                            <th>작성자</th>
+                                            <th>글쓴이</th>
                                             <th>작성일</th>
                                         </tr>
-			                                    </tfoot>
-			                                    <tbody>
-    											<%
-											    ArrayList<BoardVO> list = (ArrayList<BoardVO>) request.getAttribute("KEY_BOARDLIST");
-											    for (BoardVO bvo : list) {
-											        int seq = bvo.getSeq();
-											        String title = bvo.getTitle();
-											        String contents = bvo.getContents();
-											        String regid = bvo.getRegid();
-											        String regdate = bvo.getRegdate();
-											        
-											    %>
-											    <tr>
-											        <td><%= seq %></td>
-											        <td><a href="<%= request.getContextPath()%>/tables_detail.jsp"><%=title%></td>
-											        <td><%= contents %></td>
-											        <td><%= regid %></td>
-											        <td><%= regdate %></td>
-											    </tr>
-											    <%
-											    }
-											    %>
-											</tbody>
+                                    </tfoot>
+                                    <tbody>
+<%      
+ArrayList<BoardVO> list = (ArrayList<BoardVO>)request.getAttribute("KEY_BOARDLIST");     
+out.println("총 : " + list.size());
+for(BoardVO bvo : list) {
+	int seq         = bvo.getSeq();
+	String title    = bvo.getTitle();
+	String contents = bvo.getContents();
+	String regid    = bvo.getRegid();
+	String regdate  = bvo.getRegdate();
+	//out.println(seq + "\t" + title + "\t" + contents + "\t" + regid + "\t" + regdate + "<br>");
+%>
+	<tr>
+         <td><%=bvo.getSeq()%></td>
+         <td><a href="<%=request.getContextPath()%>/BoardServlet?seq=<%=seq%>&pagecode=B002"><%=title%></a></td>
+         <td><%=regid%></td>
+         <td><%=regdate%></td>
+     </tr>
+<% } %> 
+     
+                                        
+                                    </tbody>
                                 </table>
                             </div>
                         </div>

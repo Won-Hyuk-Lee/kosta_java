@@ -27,7 +27,7 @@
 <% out.println(request.getContextPath()); %>
 <%=request.getContextPath()%>
 
-<form method="post" action="<%=request.getContextPath()%>/BoardServlet">
+<form method="post" action="<%=request.getContextPath()%>/UserServlet">
 <input type="hidden" name="pagecode" value="P001">
     <div class="row mb-3">
         <div class="col-md-6">

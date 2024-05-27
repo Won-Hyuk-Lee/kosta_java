@@ -5,7 +5,7 @@
 
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.kosta.sample.board.BoardVO" %>
-
+<%@ page import="com.kosta.sample.board.ReplyVO" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -159,41 +159,103 @@ if (grade != null) {
                             <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
                             <li class="breadcrumb-item active">Tables</li>
                         </ol>
-                        
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 DataTable Example
                             </div>
                             <div class="card-body">
-                                <table border="1" width="100%">
-                                    <tr>
-								         <th width="20%">글번호</th>
-								         <td width="80%">1</td>
-								   </tr>
-								   <tr>
-								         <th>작성자</th>
-								         <td>아무개</td>
-								   </tr>
-								   <tr>
-								         <th>작성일</th>
-								         <td>2020-01-01</td>
-								   </tr>
-								   <tr>
-								         <th>제목</th>
-								         <td><input type="text" name="title" size="60"  value="이건제목"></td>
-								   </tr>
-								   <tr>
-								         <th>내용</th>
-								         <td><textarea name="contents" cols="80" rows="6" >이건내용</textarea></td>
-								   </tr>
-								   <tr>
-								   	<td colspan=2 align="center">
-								   		<a class="btn btn-primary btn-block">수정</a>
-								   		<a class="btn btn-primary btn-block">삭제</a>
-								   		<a class="btn btn-primary btn-block">목록</a>
-								   	</td>
-                                </table>
+
+<%
+
+BoardVO bvo = (BoardVO)request.getAttribute("KEY_BOARDVO");
+//int seq = bvo.getSeq();
+//bvo.getTitle(); 
+//bvo.getContents(); 
+//bvo.getRegid(); 
+//bvo.getRegdate();
+%>
+<form id="boardForm" >
+<input type="hidden" name="seq" value="<%=bvo.getSeq()%>">
+<input type="hidden" name="regid" value="<%=bvo.getRegid()%>">
+
+<table border="1" width="100%">
+<tr>
+   <th width="20%">글번호</th>
+   <td width="80%"><%=bvo.getSeq()%></td>
+</tr>
+<tr>
+      <th>작성자</th>
+      <td><%=bvo.getRegid()%></td>
+</tr>
+<tr>
+      <th>작성일</th>
+      <td><input type="text" name="regdate" value="<%=bvo.getRegdate()%>" readonly></td>
+</tr>
+<tr>
+      <th>제목</th>
+      <td>
+      	<input type="text" name="title" size=60  value="<%=bvo.getTitle()%>">
+      </td>
+</tr>
+<tr>
+      <th>내용</th>
+      <td>
+      	<textarea name="contents" cols="80" rows="6"><%=bvo.getContents()%></textarea>
+      </td>
+</tr>
+<tr>
+	<td colspan=2 align="center">
+		<a id="uptButton"  class="btn btn-primary btn-block">수정-B003</a>
+		<a id="delButton"  class="btn btn-primary btn-block">삭제-B004</a>
+		<a id="listButton" class="btn btn-primary btn-block">목록-B001</a>
+	</td>
+</table>
+</form>
+
+<br>
+<table width=100% border=1>
+<%      
+//ArrayList<ReplyVO> rlist = (ArrayList<ReplyVO>)request.getAttribute("KEY_REPLYLIST");     
+
+ArrayList<ReplyVO> rlist = (ArrayList<ReplyVO>)bvo.getReplies();
+
+for(ReplyVO rvo : rlist) {
+	int rseq         = rvo.getRseq();
+	String reply    = rvo.getReply();
+	String regid    = rvo.getRegid();
+	String regdate  = rvo.getRegdate();
+	
+	if (reply != null) {
+%>
+	<tr><td><font color=red><a href="/BoardServlet?pagecode=B005&seq=<%=bvo.getSeq()%>&rseq=<%=rseq%>">[X]</a></font><%=reply%></td></tr>
+<% 
+	}
+} %> 
+</table>
+
+
+
+<br>
+<form method="post" action="/BoardServlet?pagecode=B006">
+<input type=hidden name=seq value="<%=bvo.getSeq()%>">
+<table width=100% border=1>
+<tr>
+	<td>
+		<input type="text" size=100 name="reply">
+		<input type="submit" value="댓글등록">
+	</td>
+</tr>
+</table>
+</form>
+
+
+
+
+
+
+
+
                             </div>
                         </div>
                     </div>
@@ -216,10 +278,41 @@ if (grade != null) {
         <script src="js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="js/datatables-simple-demo.js"></script>
-        <script>
         
         
-        </script>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script>
+		$(function() {
+			//---------------------------------------------------------
+			// <form> 제어하기
+			//---------------------------------------------------------
+			//$(".btn.btn-primary.btn-block").click()~~
+			
+			$("#uptButton").click(  function(){
+				alert("수정");
+				$("#boardForm").attr("method","post");
+				$("#boardForm").attr("action","<%=request.getContextPath()%>/BoardServlet?pagecode=B003");
+				$("#boardForm").submit();
+				return true;
+			});
+			$("#delButton").click(  function(){
+				alert("삭제");
+				$("#boardForm").attr("method","post");
+				$("#boardForm").attr("action","<%=request.getContextPath()%>/BoardServlet?pagecode=B004");
+				$("#boardForm").submit();
+				return true;
+			});
+			$("#listButton").click(  function(){
+				location.href = "<%=request.getContextPath()%>/BoardServlet?pagecode=B001";
+			});            
+			
+			//------------------------------------------------------------
+			
+		});
+		
+	</script>
+        
+        
         
     </body>
 </html>

@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "java.net.*, javax.servlet.http.*" %>
+    
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -72,25 +74,28 @@
                                         Authentication
                                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                                     </a>
-                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                        <nav class="sb-sidenav-menu-nested nav">
-                                        <%
-                                        String userid = (String)session.getAttribute("KEY_SESS_USERID");
-                                        String uname = (String)session.getAttribute("KEY_SESS_UNAME");
-                                        String grade = (String)session.getAttribute("KEY_SESS_GRADE");
-                                        
-                                        if(grade!=null)
-                                        {
-                                        	
-                                        
-                                        %><a class="nav-link" href="/BoardServlet">LogOut</a> <%} else{ %>
-                                            <a class="nav-link" href="login.jsp">Login</a>
-                                            <%} %>
-                                            
-                                            <a class="nav-link" href="register.jsp">Register</a>
-                                            <a class="nav-link" href="password.html">Forgot Password</a>
-                                        </nav>
-                                    </div>
+  <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+      <nav class="sb-sidenav-menu-nested nav">
+      	  	
+      	  	
+      	  	
+<!-- ---------------  로그인/로그아웃 처리 ------------------------- -->
+<%
+String userid = (String)session.getAttribute("KEY_SESS_USERID");
+String uname  = (String)session.getAttribute("KEY_SESS_UNAME");
+String grade  = (String)session.getAttribute("KEY_SESS_GRADE");
+if (grade != null) {
+%>      	
+          <a class="nav-link" href="<%=request.getContextPath()%>/UserServlet">Logout</a>
+<% } else { %>      
+      	  <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp">Login</a>
+<% } %>
+
+            	   	
+          <a class="nav-link" href="<%=request.getContextPath()%>/register.jsp">Register</a>
+          <a class="nav-link" href="password.html">Forgot Password</a>
+      </nav>
+  </div>
                                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
                                         Error
                                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -109,10 +114,13 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Charts
                             </a>
-                            <a class="nav-link" href="<%=request.getContextPath()%>/BoardServlet?pagecode=B001">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Tables
-                            </a>
+                            
+                            
+<!--  ------------------ BOARD 연결------------------------ -->                            
+ <a class="nav-link" href="<%=request.getContextPath()%>/BoardServlet?pagecode=B001">
+     <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+     Tables
+ </a>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
@@ -124,15 +132,20 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Dashboard<!--  세션보이기 -->
-<%=session.getAttribute("KEY_SESS_GRADE") %>님 환영합니다.
-<% 
-if(grade!=null){
-	if(grade.equals("u")) out.println("사용자");
-	else if(grade.equals("a")) out.println("어드민");
-	else out.println("오류");
+                        <h1 class="mt-4">Dashboard
+                        
+<!-- ---------------  세션 보이기 ------------------------- -->		
+<%
+if (grade != null) {
+	out.println(uname + "님 환영합니다.");
+	if (grade.equals("u")) {
+		out.println("사용자접속");
+	} else if (grade.equals("a")) {
+		out.println("관리자접속");
+	}
 }
-%></h1>
+%>	                    
+                        </h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
