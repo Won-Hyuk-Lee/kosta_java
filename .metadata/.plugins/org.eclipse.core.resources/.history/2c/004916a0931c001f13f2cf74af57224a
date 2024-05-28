@@ -1,0 +1,9 @@
+package com.kosta.sample.json;
+
+public class APIGSON {
+
+	public static void main(String[] args) {
+
+	}
+
+}

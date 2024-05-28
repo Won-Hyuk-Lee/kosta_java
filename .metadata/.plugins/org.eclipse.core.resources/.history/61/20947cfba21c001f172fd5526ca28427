@@ -1,0 +1,35 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<script>
+var arr = [{"empno":"7733", "ename":"smith"} , 
+    {"empno":"7799", "ename":"king"}];
+    
+for(var i = 0; i<arr.length;i++){
+	console.log(arr[i]["empno"]);
+}
+
+var arr2 = [["7733", "smith"], ["7799", "king"]];
+
+for(var i = 0; i<arr2.length;i++){
+	console.log(arr2[i][0]);
+}
+</script>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script>
+	$(function() {
+		
+	});
+</script>
+	
+</head>
+<body>
+스크립트 반복문 연습
+</body>
+</html>

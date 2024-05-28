@@ -21,4 +21,7 @@
     <fullyQualifiedTypeName name="com.kosta.sample.common.MyOracleConnection"/>
     <fullyQualifiedTypeName name="javax.servlet.RequestDispatcher"/>
     <fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
+    <fullyQualifiedTypeName name="com.google.gson.Gson"/>
+    <fullyQualifiedTypeName name="java.util.stream.Collectors"/>
+    <fullyQualifiedTypeName name="com.google.gson.JsonParser"/>
 </qualifiedTypeNameHistroy>

@@ -1,0 +1,86 @@
+package com.kosta.sample.rest;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+import com.kosta.sample.board.BoardVO;
+
+
+@WebServlet("/RestServlet")
+public class RestServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    public RestServlet() {
+        super();
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+		String searchGubun = request.getParameter("searchGubun");
+		String searchStr   = request.getParameter("searchStr");
+		System.out.println(searchGubun + "," + searchStr);
+		
+		
+		ArrayList<BoardVO> list = new ArrayList<BoardVO>(); 
+		BoardVO bvo = new BoardVO();
+		bvo.setTitle("aaa");
+		bvo.setRegid("kim"); //[{"title" = "aaa", "regid" = "kim"}}] 형태가 되었다.
+		list.add(bvo);
+		
+		bvo = new BoardVO(); //[{"title" = "bbb", "regid" = "hong"}}] 형태가 되었다.
+		bvo.setTitle("bbb");
+		bvo.setRegid("hong");
+		list.add(bvo);
+		
+		
+		Gson gson = new Gson();
+		String gsonString = gson.toJson(list); 
+		//System.out.println(gsonString + "," + gsonString.getClass());
+		
+		
+		
+		PrintWriter out = response.getWriter(); 
+		out.println(gsonString); 
+
+		
+		
+		
+		
+		
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		doGet(request, response);
+//	}
+
+}

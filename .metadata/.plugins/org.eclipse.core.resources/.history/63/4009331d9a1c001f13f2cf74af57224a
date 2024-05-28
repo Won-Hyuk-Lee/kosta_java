@@ -1,0 +1,61 @@
+package com.kosta.sample.rest;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+
+
+@WebServlet("/RestServlet")
+public class RestServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    public RestServlet() {
+        super();
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+		
+		String searchGubun = request.getParameter("searchGubun");
+		String searchStr   = request.getParameter("searchStr");
+		System.out.println(searchGubun + "," + searchStr);
+		
+		
+		
+		Gson gson = new Gson();
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("empno", "7733");
+		map.put("ename", "smith");
+		
+		gson.toJson(map);
+		
+		String mapString = gson.toJson(map);
+		//System.out.println(mapString + "," + mapString.getClass());
+		
+		HashMap res = gson.fromJson(mapString, HashMap.class);
+		//System.out.println(res);
+		
+		ArrayList<HashMap<String,String>> list = new ArrayList<HashMap<String,String>>();
+		list.add(map);
+		
+		//String responseStr = "{\"empno\":\"7733\",\"ename\":\"smith\"}";
+		PrintWriter out = response.getWriter();
+		out.print(list);
+		
+	}
+
+//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		doGet(request, response);
+//	}
+
+}

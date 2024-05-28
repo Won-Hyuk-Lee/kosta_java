@@ -1,0 +1,18 @@
+package com.kosta.sample.json;
+
+import java.util.HashMap;
+
+import com.google.gson.Gson;
+
+public class APIGSON {
+
+	public static void main(String[] args) {
+		Gson gson = new Gson();
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("empno", "7733");
+		map.put("ename", "smith");
+		
+		System.out.println(map.get("ename"));
+	}
+
+}
