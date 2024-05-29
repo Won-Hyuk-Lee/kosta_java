@@ -1,0 +1,11 @@
+package com.kosta.sample.craw;
+
+import org.jsoup.Jsoup;
+
+public class CrawTest {
+
+	public static void main(String[] args) {
+		Jsoup.connect("https://news.naver.com/section/101");
+	}
+
+}

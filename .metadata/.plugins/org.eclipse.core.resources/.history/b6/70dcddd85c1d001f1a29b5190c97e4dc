@@ -1,0 +1,9 @@
+package com.kosta.sample.chart;
+
+public class EmpVO {
+
+	public static void main(String[] args) {
+
+	}
+
+}

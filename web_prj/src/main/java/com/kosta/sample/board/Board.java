@@ -12,7 +12,6 @@ import javax.sql.DataSource;
 
 import com.kosta.sample.jdbc.EmpVO;
 
-
 import oracle.jdbc.pool.OracleConnectionPoolDataSource;
 
 public class Board {

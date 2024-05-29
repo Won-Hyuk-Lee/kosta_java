@@ -1,0 +1,18 @@
+package com.kosta.sample.craw;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
+public class NewsVO {
+	
+	private int seq;
+	private String href;
+	private String img;
+	private String title;
+	private String ref;
+	private String regdate;
+	
+
+}

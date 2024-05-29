@@ -2,122 +2,262 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-
 <head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!--  REST(Representational State Transfer) 
+		   : 웹 서비스를 위한 분산 시스템 아키텍처
+		   - http 프로토콜 사용
+		   - 데이터 포맷 : json/xml 주로 사용
+		   - 개인정보 데이터 접근을 위해서는 토큰(OAuth2) 이용
+		   - 서버(프로바이더)가 정한 규칙에 맞게 요청을 해야 응답을 받을 수 있다
+		   ex) kakao  사용자 목록 가져오기
+		       Get https://kapi.kakao.com/v1/user/ids
+		       ${SERVICE_APP_ADMIN_KEY}
+		       Content-type: application/x-www-form-urlencoded;charset=utf-8
+		        
+      AJAX : 스크립트에서 비동기 통신을 위한 기술(jQuery 스크립트 라이브러리)
+		   : JSON/XML/TEXT/... 데이터표기를 사용해 데이터 송수신
+		   : https://api.jquery.com/jQuery.ajax/
+		   
+	  $.ajax( { settings } );	   
+	  $.ajax({ 
+	        *method      : "GET",
+	        *url         : "/BoradServlet?pagecode=B001",
+	        *data 		 : { "name":"kim" , "pw":"123" },    JSON표기 내부적변환 name=kim&pw=123
+	  		             : { "name": ["kim","hong"]    }                     name=kim&name=hong
+	  		             : "name=kim&pw=123"
+	  		*error 	     : function(){   },
+	  		*success     : function(){   },
+	  		
+	  		contentType : "application/x-www-form-urlencoded; charset=UTF-8"   ------ 보낼데이터 타입
+	  		            : "application/json; charset=UTF-8"
+	  		dataType    : (xml, json, script, or html, text),                  ------ 서버로부터온 응답데이터 타입
+	  		
+	  		beforeSend 	: function(){   },
+	  		complete 	: function(){   },
+	  		crossDomain : false,
+	  		headers     : {k:v},
+	  });
+		   
+-->
+<!--  ##################### 서버로 부터의 응답 String #######################  -->
+<h2>초간단 AJAX <font color=red>(F12필수)</font></h2>
+<form id="Str_Str_Form" >
+<input id="searchGubun" type=hidden name="searchGubun" value="">
+<input id="searchStr"   type="text" name="searchStr">
+<input type="button" id="AjaxBtn" value="초간단AJAX전송">
+</form>
+<hr>
+<div id="resultDIV"></div>
+
+<!--  ##################### 서버로 부터의 응답 String #######################  -->
+<h2>서버로 부터의 응답 String <font color=red>(F12필수)</font></h2>
+<form id="Str_Str_Form1">
+<select name="searchGubun">
+	<option value="title">제목</option>
+	<option value="contents">내용</option>
+	<option value="regid">글쓴이</option>
+</select>
+<input type="text" name="searchStr">
+<input type="button" id="1__Str_Str_Btn" value="1.Str-Str">
+</form>
+<hr>
+
+<form id="JsonStr_Str_Form" action="/RestServlet" method="get">
+<select name="searchGubun">
+	<option value="title">제목</option>
+	<option value="contents">내용</option>
+	<option value="regid">글쓴이</option>
+</select>
+<input type="text" name="searchStr">
+<input type="button" id="2__JsonStr_Str_Btn"  value="2.JsonStr-Str">
+</form>
+<hr>
+
+<form id="Json_Str_Form" action="/RestServlet" method="get">
+<select name="searchGubun">
+	<option value="title">제목</option>
+	<option value="contents">내용</option>
+	<option value="regid">글쓴이</option>
+</select>
+<input type="text" name="searchStr">
+<input type="button" id="3__Json_Str_Btn"  value="3.Json-Str">
+</form>
+<hr><br><br>
+
+<!--  ##################### 서버로 부터의 응답 JSON #######################  -->
+<h2>서버로 부터의 응답 JSON <font color=red>(F12필수)</font></h2>
+<form id="Str_Json_Form" >
+<select name="searchGubun">
+	<option value="title">제목</option>
+	<option value="contents">내용</option>
+	<option value="regid">글쓴이</option>
+</select>
+<input type="text" name="searchStr">
+<input type="button" id="4__Str_Json_Btn"  value="1.Str-JSON">
+</form>
+<hr>
+
+<form id="JsonStr_Json_Form" action="/RestServlet" method="get">
+<select name="searchGubun">
+	<option value="title">제목</option>
+	<option value="contents">내용</option>
+	<option value="regid">글쓴이</option>
+</select>
+<input type="text" name="searchStr">
+<input type="button" id="5__JsonStr_Json_Btn"  value="2.JsonStr-JSON">
+</form>
+<hr>
+
+<form id="Json_Json_Form" action="/RestServlet" method="get">
+<select name="searchGubun">
+	<option value="title">제목</option>
+	<option value="contents">내용</option>
+	<option value="regid">글쓴이</option>
+</select>
+<input type="text" name="searchStr">
+<input type="button" id="6__Json_Json_Btn"   value="3.Json-JSON">
+
+</form>
+<hr>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+<script>
+	//$(function() {    });
 	
-	<!-- -------------------------------------------------------------
-	    사용자 정의 Javascript 테스트 
-	--------------------------------------------------------------- -->
-	<script src="js/my.js"></script>
-	<script>
-	   //public int myprint(int a, int b) {  syso.print... }
-	   function myprint(a, b) {
-		   //alert(a+b);
-		   console.log(a+b);
-	   }
-	</script>
-	
-	
-	<!-- -------------------------------------------------------------
-	    사용자 정의 CSS 테스트 
-	--------------------------------------------------------------- -->
-	<style>
-	  	p {
-	    	color:red;
-	    	font-weight:bold;
-	  	}
-    </style>
-  	<link href="css/my.css" rel="stylesheet" />
-  	
- 
-  	<!-- -------------------------------------------------------------
-    jQuery는 HTML의 클라이언트 사이드 조작을 (단순화) 하도록 설계된 
-            크로스 플랫폼의 (자바스크립트 라이브러리)다
-     - <form> 제어        
-     - 조건문(if)
-     - 반복문(for , foreach)
-     - 전송 (Ajax)
-  	------------------------------------------------------------------
-  	$  (document).ready    (        function() {}     );
-	$                      (        function() {}     );  	
-  	id    = "abc"    $("#abc")
-  	class = "abc"    $(".abc")
-  	-->
-  	
-	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <script>
-		$(function() {
-			//---------------------------------------------------------
-			// id접근 $(".__")    vs.    class접근  $("#__")
-			//---------------------------------------------------------
-		  	//$("p").text(  "text 변경변경"  );
-			$("#PTAG_ID").text(  "text 변경변경-#PTAG_ID"  );
-			
-			$(".PTAG_CLASS").text(  "text 변경변경-.PTAG_CLASS"  );
-			//$("#PTAG_ID_11").text(  "text 변경변경-.PTAG_CLASS"  );
-			//$("#PTAG_ID_22").text(  "text 변경변경-.PTAG_CLASS"  );
-			
-			
-			//---------------------------------------------------------
-			//seq 값 가져오기 및 변수할당
-			//---------------------------------------------------------
-			//var msg = $("#seq").val();  //seq     값 가져오기
-			//alert(  msg );  
-			
-			//---------------------------------------------------------
-			//uname에 값 넣기     == value="hong"
-			//---------------------------------------------------------
-			// $("#uname").val("hong");                //id로 접근
-			// $(".uname").val("hong");                //class로 접근
-			// $("input[name='uname']").val("hong");   //name으로 접근
-			$("#uname").val("hong"); 
-			
-			//---------------------------------------------------------
-			// <form> 제어하기
-			//---------------------------------------------------------
-			$("#regbtn").click(  function(){
-				if ($("#uname").val() == "") {
-					alert("아이디 입력하세요");
-					$("#uname").focus();
-					return false;
-				} else if ($("#passwd").val() == "") {
-					alert("비번 입력하세요");
-					$("#passwd").focus();
-					return false;
-				}
-				
-				$("#loginForm").attr("method","post");
-				$("#loginForm").attr("action","/BoardServlet");
-				$("#loginForm").submit();
-				return true;
-			});
-			//------------------------------------------------------------
-			
+	$("#AjaxBtn").click(  function(){
+		//alert("초간단AJAX");
+		var sg = $("#searchGubun").val();
+		var ss = $("#searchStr").val();
+		$.ajax({
+			method      : "GET",
+	        url         : "<%=request.getContextPath()%>/RestServlet?pagecode=R001",
+	        data 		: "searchGubun="+sg+"&searchStr="+ss ,
+	  		error 	    : function(myval){ console.log("에러:" + myval);   },
+	  		success     : function(myval){ console.log("성공:" + empVOPrint(myval));   }
+		});
+	});
+	$("#1__Str_Str_Btn").click(  function(){
+		//alert("1");
+		var sendFormData = $("#Str_Str_Form1").serialize();  //searchGubun=contents&searchStr=11111
+		console.log(sendFormData);
+		$.ajax({
+			method      : "GET",
+	        url         : "<%=request.getContextPath()%>/RestServlet?pagecode=R001",
+	        data 		: sendFormData ,   //searchGubun=contents&searchStr=11111
+	  		error 	    : function(myval){  console.log("에러:" + myval);   },
+	  		success     : function(myval){ 
+	  										//JSON모양의 글자가 들어옴
+	  										console.log("성공:" + myval);
+	  										
+	  										//obj = JSON.parse(str);
+	  										//JSON모양의 글자를 객체 JSON으로 변환
+	  										var myval_obj = JSON.parse(myval);
+	  										console.log("성공변환:" + myval_obj);
+	  										console.log("성공변환:" + myval_obj[0]["regid"]);
+	  			 							
+	  										
+	  										//https://api.jquery.com/jQuery.map/
+	  										//[{"seq":0,"title":"aaa","regid":"kim"},{"seq":0,"title":"bbb","regid":"hong"}]
+	  										var htmlStr = "<table border=1 width=50%><tr><th>제목</th><th>글쓴이</th></tr>";
+	  										$.map( myval_obj, function( MYval, MYidx ) {
+	  											htmlStr += "<tr><td>" +MYval["title"] + "</td><td>"+MYval["regid"] +"</td></tr>"
+	  											//console.log(MYval["title"] + "," + MYval["regid"] + "," + MYidx);
+											});
+	  										htmlStr += "</table>";
+	  										$("#resultDIV").empty();
+	  										$("#resultDIV").html("1. <b>"+htmlStr+"</b>");
+	  									 }
 		});
 		
-	</script>
-</head>
-
-<body>
-   <form name="loginForm" id="loginForm" method="post">  method action <br>
-    	hidden:<input type="hidden"    name="seq"    id="seq"    class="seq"    value="12345"><br>
-    	uname:<input type="text"      name="uname"  id="uname"  class="uname"><br>
-    	passwd:<input type="password"  name="passwd" id="passwd" class="passwd"><br>
-    	<input type="button"    name="regbtn" id="regbtn" class="regbtn"  value="가입">
-    </form>
-    
-	<p id="PTAG_ID">Not loaded yet111</p><br>         <!--  id : 고유해야 한다. -->
+	});
 	
-	<p id="PTAG_ID_11" class="PTAG_CLASS">aaaaa</p>	  <!--  class : 일괄 적용시켜야 할 경우 사용 -->
-	<p id="PTAG_ID_22" class="PTAG_CLASS">bbbbb</p>
+	$("#2__JsonStr_Str_Btn").click(  function(){
+		var objData = {"name":"kim","pw":"123"};
+		console.log(objData);
+		
+		var strData  = JSON.stringify(objData)
+		console.log(strData);
+		
+		$.ajax({
+			method      : "POST",
+	        url         : "<%=request.getContextPath()%>/RestServlet?pagecode=R002",
+	        contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+	        data 		: "MY_JSONKEY=" + JSON.stringify(objData) ,   
+	  		error 	    : function(myval){ console.log("에러:" + myval);   },
+	  		success     : function(myval){ console.log("성공:" + myval);    }
+		});
+	});
 	
-    <a href="#" onClick="myprint(5,3)"> 클릭 내부js</a><br>
-    <div        onClick="myprint(5,3)"> 클릭 내부js div  </div>
-    <a href="#" onClick="myjsPrint()"> 클릭 외부my.js</a><br>
-    
+	$("#3__Json_Str_Btn").click(  function(){
+		var objData = {"title":"aaaaatitle","regid":"hong"};
+		$.ajax({
+			method      : "POST",
+	        url         : "<%=request.getContextPath()%>/RestServlet?pagecode=R003",
+	        contentType : "application/json; charset=UTF-8",
+	        data 		: JSON.stringify(objData),   
+	  		error 	    : function(myval){ console.log("에러:" + myval);   },
+	  		success     : function(myval){ console.log("성공:" + myval);    }
+		});
+	});
+	
+	$("#4__Str_Json_Btn").click(  function(){
+		var sendFormData = $("#Str_Json_Form").serialize();  //searchGubun=contents&searchStr=11111
+		$.ajax({
+			method      : "POST",
+	        url         : "<%=request.getContextPath()%>/RestServlet?pagecode=R004",
+	        data 		: sendFormData,   
+	        dataType    : "json",    //생략가능
+	  		error 	    : function(myval){ console.log("에러:" + myval);   },
+	  		success     : function(myval){ //{"status":"200", "message":"R004 응답 ok"}
+	  									  console.log("성공:" + myval);   
+	  									  console.log(myval['status'] + "," + myval['message']);   
+	  									 }
+		});
+	});
+	$("#5__JsonStr_Json_Btn").click(  function(){
+		var objData = {"name":"kim","pw":"123"};
+		console.log(objData);
+		
+		var strData  = JSON.stringify(objData)
+		console.log(strData);
+		
+		$.ajax({
+			method      : "POST",
+	        url         : "<%=request.getContextPath()%>/RestServlet?pagecode=R005",
+	        contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+	        data 		: "MY_JSONKEY=" + JSON.stringify(objData) ,   
+	        dataType    : "json",    //생략가능
+	  		error 	    : function(myval){ console.log("에러:" + myval);   },
+	  		success     : function(myval){ //{"status":"200", "message":"R004 응답 ok"}
+	  									  console.log("성공:" + myval);   
+	  									  console.log(myval['status'] + "," + myval['message']);   
+	  									 }
+		});
+	});
+	
+	
+	$("#6__Json_Json_Btn").click(  function(){
+		var objData = {"title":"aaaaatitle","regid":"hong"};
+		$.ajax({
+			method      : "POST",
+	        url         : "<%=request.getContextPath()%>/RestServlet?pagecode=R006",
+	        contentType : "application/json; charset=UTF-8",
+	        data 		: JSON.stringify(objData),   
+	        dataType    : "json",    //생략가능
+	  		error 	    : function(myval){ console.log("에러:" + myval);   },
+	  		success     : function(myval){ //{"status":"200", "message":"R004 응답 ok"}
+	  									  console.log("성공:" + myval);   
+	  									  console.log(myval['status'] + "," + myval['message']);   
+	  									 }
+		});
+	});
+	
+</script>
 
 </body>
-
 </html>

@@ -1,0 +1,24 @@
+package com.kosta.sample.craw;
+
+import java.io.IOException;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
+public class CrawTest {
+
+	public static void main(String[] args) {
+		String url = "https://news.naver.com/section/101";
+		Document doc = null;
+		try {
+			doc = Jsoup.connect(url).get();
+			//System.out.println(doc.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		Elements e1 = doc.select("#newsct > div.section_latest > div > div.section_latest_article._CONTENT_LIST._PERSIST_META > div:nth-child(1) > ul > li:nth-child(1)");
+	}
+
+}

@@ -1,0 +1,9 @@
+package com.kosta.sample.craw;
+
+public class CrawTest {
+
+	public static void main(String[] args) {
+
+	}
+
+}

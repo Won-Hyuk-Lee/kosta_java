@@ -1,0 +1,13 @@
+package com.kosta.sample.craw;
+
+public class NewsVO {
+	
+	private int seq;
+	private String href;
+	private String img;
+	private String title;
+	private String ref;
+	private String regdate;
+	
+
+}

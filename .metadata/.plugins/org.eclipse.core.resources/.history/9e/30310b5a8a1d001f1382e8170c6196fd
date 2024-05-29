@@ -1,0 +1,21 @@
+package com.kosta.sample.craw;
+
+import java.io.IOException;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+public class CrawTest {
+
+	public static void main(String[] args) {
+		String url = "https://news.naver.com/section/101";
+		Document doc = null;
+		try {
+			doc = Jsoup.connect(url).get();
+			System.out.println(doc.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+}
