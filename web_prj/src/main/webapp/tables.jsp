@@ -1,15 +1,12 @@
-<%@ page language="java" 
-		 contentType="text/html; charset=UTF-8"
-    	 pageEncoding="UTF-8"
-%>
-
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.kosta.sample.board.BoardVO" %>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%> 
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
+    <link rel="shortcut icon" href="#"><!-- favicon 에러 해결방안 -->
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -85,18 +82,14 @@
 
      	  	
 <!-- ---------------  로그인/로그아웃 처리 ------------------------- -->
-<%
-String userid = (String)session.getAttribute("KEY_SESS_USERID");
-String uname  = (String)session.getAttribute("KEY_SESS_UNAME");
-String grade  = (String)session.getAttribute("KEY_SESS_GRADE");
-
-if (grade != null) {
-%>      
-          <a class="nav-link" href="<%=request.getContextPath()%>/UserServlet">Logout</a>
-<% } else { %>      
-      	  <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp">Login</a>
-<% } %>
-
+<c:choose>
+    <c:when test="${not empty sessionScope.KEY_SESS_GRADE}">
+        <a class="nav-link" href="${pageContext.request.contextPath}/UserServlet">Logout</a>
+    </c:when>
+    <c:otherwise>
+        <a class="nav-link" href="${pageContext.request.contextPath}/login.jsp">Login</a>
+    </c:otherwise>
+</c:choose>
 
          <a class="nav-link" href="register.html">Register</a>
          <a class="nav-link" href="password.html">Forgot Password</a>
@@ -124,9 +117,10 @@ if (grade != null) {
                             </a>
                             
 <!--  ------------------ BOARD 연결------------------------ -->                            
- <a class="nav-link" href="<%=request.getContextPath()%>/BoardServlet">
+ <a class="nav-link" href="${pageContext.request.contextPath}/BoardServlet?pagecode=B002">
      <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-     Tables    
+     Tables
+ 	
  </a>
                         </div>
                     </div>
@@ -141,24 +135,22 @@ if (grade != null) {
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Tables
                         
-                        
 <!-- ---------------  세션 보이기 ------------------------- -->		
-<%
-if (grade != null) {
-	out.println(uname + "님 환영합니다.");
-	if (grade.equals("u")) {
-		out.println("사용자접속");
-	} else if (grade.equals("a")) {
-		out.println("관리자접속");
-	}
-}
-%>
+<c:choose>
+    <c:when test="${not empty grade}">
+        <a class="nav-link" href="${pageContext.request.contextPath}/UserServlet">Logout</a>
+    </c:when>
+    <c:otherwise>
+        <a class="nav-link" href="${pageContext.request.contextPath}/login.jsp">Login</a>
+    </c:otherwise>
+</c:choose>
                         
                         </h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
                             <li class="breadcrumb-item active">Tables</li>
                         </ol>
+                        
                         <div class="card mb-4">
                             <div class="card-body">
                                 DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
@@ -166,6 +158,7 @@ if (grade != null) {
                                 .
                             </div>
                         </div>
+                        
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
@@ -190,30 +183,19 @@ if (grade != null) {
                                         </tr>
                                     </tfoot>
                                     <tbody>
-<%      
-ArrayList<BoardVO> list = (ArrayList<BoardVO>)request.getAttribute("KEY_BOARDLIST");     
-out.println("총 : " + list.size());
-for(BoardVO bvo : list) {
-	int seq         = bvo.getSeq();
-	String title    = bvo.getTitle();
-	String contents = bvo.getContents();
-	String regid    = bvo.getRegid();
-	String regdate  = bvo.getRegdate();
-	//out.println(seq + "\t" + title + "\t" + contents + "\t" + regid + "\t" + regdate + "<br>");
-%>
-	<tr>
-         <td><%=bvo.getSeq()%></td>
-         <td><a href="<%=request.getContextPath()%>/BoardServlet?seq=<%=seq%>&pagecode=B002"><%=title%></a></td>
-         <td><%=regid%></td>
-         <td><%=regdate%></td>
-     </tr>
-<% } %> 
-     
-                                        
+<c:forEach var="bvo" items="${requestScope.KEY_BOARDLIST}">
+                                    <tr>
+                                            <td>${bvo.seq}</td>
+                                            <td><a href="${pageContext.request.contextPath}/BoardServlet?pagecode=B002&seq=${bvo.seq}">${bvo.title}</a></td>
+                                            <td>${bvo.regid}</td>
+                                            <td>${bvo.regdate}</td>
+                                        </tr>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
+                        
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">

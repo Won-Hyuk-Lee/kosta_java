@@ -28,6 +28,20 @@
     <version>1.17.2</version>
 </dependency>
 
+<dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>jstl</artifactId>
+	    <version>1.2</version>
+	</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <version>1.18.30</version>
+    <scope>provided</scope>
+</dependency>
+
 	  
 	   <dependency>
         <groupId>com.google.code.gson</groupId>
@@ -51,8 +65,6 @@
     <artifactId>ojdbc10</artifactId>
     <version>19.18.0.0</version>
 </dependency>
-
-
 
     <!-- https://mvnrepository.com/artifact/org.json/json -->
 	<dependency>

@@ -1,0 +1,64 @@
+package com.kosta.sample.jstl;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.kosta.sample.board.BoardVO;
+
+/**
+ * Servlet implementation class JstlServlet
+ */
+@WebServlet("/JstlServlet")
+public class JstlServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+    
+    public JstlServlet() {
+        super();       
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+	
+		ArrayList<BoardVO> list = new ArrayList<BoardVO>();
+		BoardVO bvo  = new BoardVO();
+		bvo.setRegid("kim");
+		bvo.setTitle("이건제목");
+		list.add(bvo);
+		bvo  = new BoardVO();
+		bvo.setRegid("kim2");
+		bvo.setTitle("이건제목2");
+		list.add(bvo);
+		request.setAttribute("KEY_LISTVO", list);
+		
+//		HashMap<String, BoardVO> map = new HashMap<String, BoardVO>();
+//		BoardVO bvo  = new BoardVO();
+//		bvo.setRegid("kim33");
+//		bvo.setTitle("이건제목33");
+//		map.put("map_key", bvo);
+//		request.setAttribute("KEY_MAPVO", map);
+		
+//		HttpSession session = request.getSession();
+//		session.setAttribute("SESS_ID", "kim");
+//		session.setAttribute("SESS_GRADE", "gold");
+		
+		
+		Cookie ck = new Cookie("MY_COOKIE_UID", "lee");
+		ck.setMaxAge(100);
+		response.addCookie(ck);
+		
+		
+		RequestDispatcher rd = request.getRequestDispatcher("lec_jstl.jsp");
+		rd.forward(request, response);
+	}	
+}
